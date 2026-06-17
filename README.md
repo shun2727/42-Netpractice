@@ -202,8 +202,7 @@ _The following section will addreses the concepts learnt and the sources accesse
 		x         . x         . 2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0 . x         
 		11111111  . 11111111  . 1    1    1    1    1    0    0    0   . 00000000
 
-		Last octet:
-
+		
 		Bit position:  2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
 		Bits:          1    1    1    1    1    0    0    0
 		Values:       128   64   32   16    8    4    2    1
@@ -223,7 +222,7 @@ _The following section will addreses the concepts learnt and the sources accesse
 		= [2 ^ 11] -2
 		= 2046 
 
-		> There are 126 usable addreseeses/hosts
+		> There are 2046 usable addreseeses/hosts
 		```
 	3.  Range of network
 		- Step 1 : Find block size
@@ -290,7 +289,6 @@ _The following section will addreses the concepts learnt and the sources accesse
 			192.168.255.8 - 192.168.255.11
 			...
 			```
-	4. range of usable IP
 
 ---
 
@@ -332,9 +330,10 @@ _source for public and private addreses : https://www.geeksforgeeks.org/computer
 	- PAT Overloading : Many private ip addresses uses 1 public IP
 
 
-### Default gateways
+### Default gateways & default route
 ---
-- 
+- Determining the default gateway of a router 
+2 are reserved for loopback and broadcast 
 
 
 ### Routers
