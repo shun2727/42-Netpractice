@@ -19,51 +19,28 @@ Steps to run the activity in the form of a web page :
 ## Resources
 _The following section will addreses the concepts learnt and the sources accessed for the materials_
 
-### TCP/IP addressing
+### 1.0 Computers identifying each other
+#### IP address
 ---
-- TCP/IP includes an **Internet addressing scheme** that allows users and applications to **identify a specific network or host with which to communicate**
+<details>
+<summary> IP address analogy </summary>
 
-- Internet addresses are made up of a **network address** and a **host (or local) address**.
-	- This two-part address allows a sender to **specify the network** & a specific **host** on the network. _(In layman terms, network is the taman you live in , host is your house)_
+	Imagine Obama wants to send data to Joe Biden, But Obama has a problem. _"How do i know which computer (house) is Biden's ?"_. 
+
+ 	Each computer needs a unique adddress, so that the data knows where to go. This is where **IP addressses** come in.
+</details>
+
+- Internet addresses are made up of 2 informations : a **network address** and a **host (or local) address**.
+	- This two-part address allows a sender to **specify the network** & a specific **host** on the network. 
+	- _(In layman terms, network is the taman you live in , host is your house)_
 	- Example:
-		- IP Address: `192.168.1.25`
-		- Network Address: `192.168.1.0/24`
-		- Host Address: `25`
+		- IP Address (House address) : `192.168.1.25`
+		- Network Address (Taman lived in): `192.168.1.0/24`
+		- Host Address (House number plate): `25`
 
-- The Internet addressing scheme consists of **Internet Protocol (IP) addresses** and two special cases of IP addresses: **broadcast addresses** and **loopback addresses.**
-	- **Internet addresses** : 
-		- The Internet Protocol (IP) uses a 32-bit, two-part address field.
-		- Example:
-			- `8.8.8.8` (Google Public DNS)
-			- `192.168.1.10` (private network host)
-	- **Subnet addresses** : 
-		- Subnet addressing allows an autonomous system made up of multiple networks to share the same Internet address.
-		- Example:
-			- Organization network: `192.168.0.0/16`
-			- Subnet A: `192.168.1.0/24`
-			- Subnet B: `192.168.2.0/24`
-		- Subnet address vs subnet mask : 
-		- Subnet vs VLAN : 
+Network address are written in the form of IPV4 and IPV6 
 
-			_source : https://www.geeksforgeeks.org/computer-networks/difference-between-vlan-and-subnet/_
-	- **Broadcast addresses** : 
-		- The TCP/IP can send data to all hosts on a local network or to all hosts on all directly connected networks. Such transmissions are called broadcast messages.
-		 Example:
-			- Network: `192.168.1.0/24`
-			- Broadcast Address: `192.168.1.255`
-			- A packet sent to `192.168.1.255` is received by all hosts on the `192.168.1.0/24` network.
-	- **Local loopback addresses** : 
-		- The Internet Protocol defines the special network address, `127.0.0.1`, as a local loopback address.
-		Example:
-			- `127.0.0.1` (localhost)
-			- A web server running on your machine can be accessed at `http://127.0.0.1`.
-
-	_source for TCP/IP addressing : https://www.ibm.com/docs/en/aix/7.2.0?topic=protocol-tcpip-addressing_
-
-
-**IPv4 and IPv6 are versions of the Internet Protocol (IP), which is part of the TCP/IP suite. They define how devices are addressed and identified on a network.**
-
-#### IPv4
+##### IPv4
 ---
 - An IPV4 address is **32 bits** binary long, divided into **four 8-bit segments** (bytes, 8 bit = 1 byte).
 - Each segment/octet ranges from **0 to 255** inclusive. Because 8-bit binary number ranges from **00000000₂ (0)** to **11111111₂ (255)**.
@@ -79,15 +56,56 @@ _The following section will addreses the concepts learnt and the sources accesse
 
 	_source for CIDR : https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing_
 
-
-##### Subnet masks
+##### IPv6
 ---
-> Subnet mask → determines block size → determines subnet ranges
+
+
+#### MAC addrees
+----
+
+
+#### Interface
+---
+
+
+### Subnet masks
+---
+<details>
+<summary> Subnet mask analogy </summary>
+
+	After Obama knows which is Biden's computer, he wants has another problem : _"Is Biden in the same subnet(taman) as me, or somewhere else?"_
+
+	If Biden is in the same subnet (taman), Obama can send the packet directly. 
+
+	If Biden is in a different subnet (taman), Obama must ask a router to deliver it.
+
+	But how can Obama determine which part of an IP address represents the subnet (taman) and which part represents the host (house)?
+
+	This is where **subnet masks** comes in.
+
+</details>
 
 - What are subnet masks :
 	-  Subnet mask helps a device determine whether another device is on the same local network or on a different network, which in turn decides whether communication is direct or must go through a router.
-
-- Example of relationship for subnet mask
+	- Subnet masks tells a device which portion of the IP address represents the **network** , an which portion represents the **host**
+	- Example :
+		- Obama : `192.168.1.10/24`
+		- Biden : `192.168.1.25/24`
+		- Subnet Mask : `255.255.255.0`
+		- With the subnet mask bith devices know thier netowrk address is `192.168.1.0`
+		```
+		Obama : 
+		192 . 168 . 1   . 10
+		255 . 255 . 255 . 0
+		
+		Biden : 
+		192 . 168 . 1   . 25
+		255 . 255 . 255 . 0
+		
+		Netowrk address : 
+		192 . 168 . 1   . 0
+		```
+- With subnet masks, we can determine how many devices can be on a subnet and the range of the subnet. Example of relationship for subnet mask :
 
 	| Subnet Mask           | Block Size | Number of Subnets (/24) | Subnet Ranges                  |
 	| --------------------- | ---------- | ----------------------- | ------------------------------ |
@@ -95,202 +113,53 @@ _The following section will addreses the concepts learnt and the sources accesse
 	| /25 (255.255.255.128) | 128        | 2                       | 0–127, 128–255                 |
 	| /26 (255.255.255.192) | 64         | 4                       | 0–63, 64–127, 128–191, 192–255 |
 
-
-
-#### IPv6
+source for underatnding how devices communicate with each other: https://www.youtube.com/watch?v=pCcJFdYNamc
+### Subnet addresses
 ---
+<details>
+<summary> Subnet address analogy </summary>
+
+	Imagine Obama lives in a large district (Daerah), If every house is just placed in the district with no breakdown, it would be difficult for postmen to organize deliveries. 
+
+	To make the navigation easier, Jeffery cheah divides the district into small Tamans. This process is called **subnetting**
+	Once the neighborhoods are created, each neighborhood needs an identifier.
+
+	This is where **subnet address** comes in.
+
+</details>
+
+- Subnet addressing allows an autonomous system made up of multiple networks to share the same Internet address.
+- Example:
+	- (Netowrk) District: `192.168.0.0/16`
+	- (Subnet A) Taman A: `192.168.1.0/24`
+	- (Subnet B) Taman B: `192.168.2.0/24`
+
+- Every subnet reserves two addresses that cannot normally be assigned to hosts:
+	1. **First address (Network/Subnet Address)**
+		- Identifies the subnet itself.
+		- Used by routers and hosts to refer to the network as a whole.
+
+	2. **Last address (Broadcast Address)**
+		- Used to send data to all hosts within the subnet.
+		- Cannot be assigned to an individual device.
 
 
+- Differentiating **Subnet address** vs **subnet mask** : 
+	- **Subnet address a.k.a Network address** is the first address within a subnet that defines the subnet as a whole and the routers use this to send data 
+	- Example : 
+		- Range : `192.168.255.0 - 192.168.255.3`
+		- Subnet address : `192.168.255.0`
+	- **Subnet mask** determines which part of the ip address is the _host_ and _network_ portion
+	- Example :
+		- `255.255.255.0`
+		- in CIDR notation : `\24`
 
-
-#### Sample questions to solidify understanding for IPs and Subnets:
+#### Summary (within the same subnet)
 ---
-1. Provided a subnet of `192.168.10.25/25`, what are the IPs within this network?
-	1.  Finding the **subnet mask**
-		```
-		/25 prefix:
+> [!NOTE]
+> IP address 
 
-		11111111.11111111.11111111.10000000
-		(the first 25 bits are network bits)
-
-		Bit values:
-		x         . x         . x         . 2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
-		11111111  . 11111111  . 11111111  . 1    0    0    0    0    0    0    0
-
-		Last octet:
-
-		Bit position:  2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
-		Bits:          1    0    0    0    0    0    0    0
-		Values:       128   64   32   16    8    4    2    1
-
-		128 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = 128
-
-		Decimal:
-		255       . 255       . 255       . 128
-
-		> Subnet Mask: 255.255.255.128
-		```
-	2.  Amount of usable hosts per subnet
-		```
-		> Using the formula [2 ^ (32 - N)] - 2 (for loopback and broadcast) :
-
-		[2 ^ (32 - 25)] - 2
-		= [2 ^ 7] -2
-		= 126 
-
-		> There are 126 usable addreseeses/hosts
-		```
-	3.  Range of network
-		- Step 1 : Find block size
-			```
-			Block size 	= 256 - 128
-						= 128
-			```
-		- Step 2 : find the amount of subnets
-			- To calculate the total number of subnets you can create in a network, use the formula (2^s), where s is the number of bits borrowed from the host portion of the IP address.Each borrowed bit doubles the number of possible subnets.
-			```
-			Borrowed bits = 25 - 24 = 1
-
-			Number of subnets = 2^1 = 2
-			```
-		- Step 3 : List subnet ranges
-			```
-			192.168.10.0   - 192.168.10.127
-			192.168.10.128 - 192.168.10.255
-			```
-
-	4. Usable host range for the given IP
-		```
-		> In this scenario given that the IP is 192.168.10.25/25
-
-		First Host: 192.168.10.1
-		Last Host:  192.168.10.126
-		Network address : 192.168.10.0 /25
-		Host address 	: 192.168.10.25 /25
-		Broadcast address ; 192.168.10.127
-		```
-	> Guide :
-	>1. Determine the Subnet Mask
-	>2. Calculate Usable Hosts
-	>3. Determine the Network Range
-	>   	- Find block size
-	>   	- List subnet ranges
-	>   	- Calculate number of subnets
-	>4. Determine the Usable Host Range
-	>
-
-
-
-2. Given a subnet of `/21` , which of the IP is not in the same range as others
-	
-	a. 172.16.16.16
-	
-	b. 172.16.15.15
-	
-	c. 172.16.10.10
-	
-	d. 172.16.8.8
-
-	1.  Finding the **subnet mask**
-		```
-		/21 prefix:
-
-		11111111.11111111.11111000.00000000
-		(the first 21 bits are network bits)
-
-		Bit values:
-		x         . x         . 2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0 . x         
-		11111111  . 11111111  . 1    1    1    1    1    0    0    0   . 00000000
-
-		
-		Bit position:  2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
-		Bits:          1    1    1    1    1    0    0    0
-		Values:       128   64   32   16    8    4    2    1
-
-		128 + 64 + 32 + 16 + 8 + 0 + 0 + 0 = 248
-
-		Decimal:
-		255       . 255       . 248       . 0
-
-		> Subnet Mask: 255.255.248.0
-		```
-	2.  Amount of usable hosts per subnet
-		```
-		> Using the formula [2 ^ (32 - N)] - 2 (for loopback and broadcast) :
-
-		[2 ^ (32 - 21)] - 2
-		= [2 ^ 11] -2
-		= 2046 
-
-		> There are 2046 usable addreseeses/hosts
-		```
-	3.  Range of network
-		- Step 1 : Find block size
-			```
-			Block size 	= 256 - 248
-						= 8
-			```
-		- Step 2 : find the amount of subnets
-			```
-			Borrowed bits = 21 - 16 = 5
-
-			Number of subnets = 2^5 = 32
-			```
-		- Step 3 : List subnet ranges
-			```
-			> Given that the block size is 8, increment the 3rd octet into blocks of 8
-			172.16.0.0   - 172.16.7.255
-			172.16.8.0   - 172.16.15.255
-			172.16.16.0  - 172.16.23.255
-			172.16.24.0  - 172.16.31.255
-			172.16.32.0  - 172.16.39.255
-			```
-
-	4. IP that is not the same range with others
-		```
-		ans : a.  172.16.16.16
-
-		b. 172.16.15.15
-		c. 172.16.10.10
-		d. 172.16.8.8
-
-		are all within the subnet : 172.16.8.0   - 172.16.15.255
-		```
-3. Given 255.255.255.252 /30 , what are the range of usable IP
-	1. Find the subnet mask
-		```
-		Subnet mask is given as /30
-		```
-	2. Find the amount of usabale host
-		```
-		> Using the formula [2 ^ (32 - N)] - 2 (for loopback and broadcast) :
-
-		[2 ^ (32 - 30)] - 2
-		= [2 ^ 4] -2
-		= 2
-		```
-	3. Range of network
-		- Step 1 : Find block size
-			```
-			Block size 	= 256 - 252
-						= 4
-			```
-		- Step 2 : find the amount of subnets
-			```
-			Borrowed bits = 30 - 24 = 6
-
-			Number of subnets = 2^6 = 64
-			```
-		- Step 3 : List subnet ranges
-			```
-			> Given that the block size is 4, increment the 4th octet into blocks of 4
-			192.168.255.0 - 192.168.255.3
-			192.168.255.4 - 192.168.255.7
-			192.168.255.8 - 192.168.255.11
-			...
-			```
-
----
+### 2.0 Types of IP addresses
 
 #### Public IP ranges :
 | Class   | Range                                                       | CIDR (Equivalent)                      | Common Use Example                            |
@@ -323,12 +192,228 @@ _source for ip address ranges : https://www.meridianoutpost.com/resources/articl
 
 _source for public and private addreses : https://www.geeksforgeeks.org/computer-networks/difference-between-private-and-public-ip-addresses/_
 
-#### Additional infomartion 
-1. In order to allow internal IP addresses to connect to external network. Routers carry out NAT (network addresss translation). There are several types of NAT :
-	-  Static : 1 private is mapped to 1 public address
-	- PAT Pool : Multiple private addresses can be connected to a pool of public addresses
-	- PAT Overloading : Many private ip addresses uses 1 public IP
+#### Broadcast address & Loopback address
+---
+- The Internet addressing scheme consists of **Internet Protocol (IP) addresses** and several special cases of IP addresses but more notably : **broadcast addresses** and **loopback addresses.**
+	- **Internet addresses** : 
+		- The Internet Protocol (IP) uses a 32-bit, two-part address field.
+		- Example:
+			- `8.8.8.8` (Google Public DNS)
+			- `192.168.1.10` (private network host)
 
+	- **Broadcast addresses** : 
+		- The TCP/IP can send data to all hosts on a local network or to all hosts on all directly connected networks. Such transmissions are called broadcast messages.
+		 Example:
+			- Network: `192.168.1.0/24`
+			- Broadcast Address: `192.168.1.255`
+			- A packet sent to `192.168.1.255` is received by all hosts on the `192.168.1.0/24` network.
+		- _How do you define a broadcast address ?_
+			- f
+
+	- **Local loopback addresses** : 
+		- The Internet Protocol defines the special network address, `127.0.0.1`, as a local loopback address.
+		Example:
+			- `127.0.0.1` (localhost)
+			- A web server running on your machine can be accessed at `http://127.0.0.1`.
+		- _Why do we need a loopback address_ ?
+			_source : https://www.reddit.com/r/networking/comments/1bgc63t/what_is_the_point_of_a_loopback_address/_
+
+			Consider this scenario : 
+			
+			``
+			dede
+			``
+
+
+### 3.0 Fromula to find IPs and Subnets:
+---
+#### 1. Provided a subnet of `192.168.10.25/25`, what are the IPs within this network?
+1.  Finding the **subnet mask**
+	```
+	/25 prefix:
+
+	11111111.11111111.11111111.10000000
+	(the first 25 bits are network bits)
+
+	Bit values:
+	x         . x         . x         . 2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
+	11111111  . 11111111  . 11111111  . 1    0    0    0    0    0    0    0
+
+	Last octet:
+
+	Bit position:  2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
+	Bits:          1    0    0    0    0    0    0    0
+	Values:       128   64   32   16    8    4    2    1
+
+	128 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = 128
+
+	Decimal:
+	255       . 255       . 255       . 128
+
+	> Subnet Mask: 255.255.255.128
+	```
+2.  Amount of usable hosts per subnet
+	```
+	> Using the formula [2 ^ (32 - N)] - 2 (for network address and broadcast) :
+
+	[2 ^ (32 - 25)] - 2
+	= [2 ^ 7] -2
+	= 126 
+
+	> There are 126 usable addreseeses/hosts
+	```
+3.  Range of network
+	- Step 1 : Find block size
+		```
+		Block size 	= 256 - 128
+					= 128
+		```
+	- Step 2 : find the amount of subnets
+		- To calculate the total number of subnets you can create in a network, use the formula (2^s), where s is the number of bits borrowed from the host portion of the IP address.Each borrowed bit doubles the number of possible subnets.
+		```
+		Borrowed bits = 25 - 24 = 1
+
+		Number of subnets = 2^1 = 2
+		```
+	- Step 3 : List subnet ranges
+		```
+		192.168.10.0   - 192.168.10.127
+		192.168.10.128 - 192.168.10.255
+		```
+
+4. Usable host range for the given IP
+	```
+	> In this scenario given that the IP is 192.168.10.25/25
+
+	First Host: 192.168.10.1
+	Last Host:  192.168.10.126
+	Network address : 192.168.10.0 /25
+	Host address 	: 192.168.10.25 /25
+	Broadcast address ; 192.168.10.127
+	```
+> Guide :
+>1. Determine the Subnet Mask
+>2. Calculate Usable Hosts
+>3. Determine the Network Range
+>   	- Find block size
+>   	- List subnet ranges
+>   	- Calculate number of subnets
+>4. Determine the Usable Host Range
+>
+
+
+
+#### 2. Given a subnet of `/21` , which of the IP is not in the same range as others
+	
+a. 172.16.16.16
+
+b. 172.16.15.15
+
+c. 172.16.10.10
+
+d. 172.16.8.8
+
+1.  Finding the **subnet mask**
+	```
+	/21 prefix:
+
+	11111111.11111111.11111000.00000000
+	(the first 21 bits are network bits)
+
+	Bit values:
+	x         . x         . 2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0 . x         
+	11111111  . 11111111  . 1    1    1    1    1    0    0    0   . 00000000
+
+	
+	Bit position:  2^7  2^6  2^5  2^4  2^3  2^2  2^1  2^0
+	Bits:          1    1    1    1    1    0    0    0
+	Values:       128   64   32   16    8    4    2    1
+
+	128 + 64 + 32 + 16 + 8 + 0 + 0 + 0 = 248
+
+	Decimal:
+	255       . 255       . 248       . 0
+
+	> Subnet Mask: 255.255.248.0
+	```
+2.  Amount of usable hosts per subnet
+	```
+	> Using the formula [2 ^ (32 - N)] - 2 (for network address and broadcast) :
+
+	[2 ^ (32 - 21)] - 2
+	= [2 ^ 11] -2
+	= 2046 
+
+	> There are 2046 usable addreseeses/hosts
+	```
+3.  Range of network
+	- Step 1 : Find block size
+		```
+		Block size 	= 256 - 248
+					= 8
+		```
+	- Step 2 : find the amount of subnets
+		```
+		Borrowed bits = 21 - 16 = 5
+
+		Number of subnets = 2^5 = 32
+		```
+	- Step 3 : List subnet ranges
+		```
+		> Given that the block size is 8, increment the 3rd octet into blocks of 8
+		172.16.0.0   - 172.16.7.255
+		172.16.8.0   - 172.16.15.255
+		172.16.16.0  - 172.16.23.255
+		172.16.24.0  - 172.16.31.255
+		172.16.32.0  - 172.16.39.255
+		```
+
+4. IP that is not the same range with others
+	```
+	ans : a.  172.16.16.16
+
+	b. 172.16.15.15
+	c. 172.16.10.10
+	d. 172.16.8.8
+
+	are all within the subnet : 172.16.8.0   - 172.16.15.255
+	```
+#### 3. Given 255.255.255.252 /30 , what are the range of usable IP
+1. Find the subnet mask
+	```
+	Subnet mask is given as /30
+	```
+2. Find the amount of usabale host
+	```
+	> Using the formula [2 ^ (32 - N)] - 2 (for network(subnet) address and broadcast) :
+
+	[2 ^ (32 - 30)] - 2
+	= [2 ^ 4] -2
+	= 2
+	```
+3. Range of network
+	- Step 1 : Find block size
+		```
+		Block size 	= 256 - 252
+					= 4
+		```
+	- Step 2 : find the amount of subnets
+		```
+		Borrowed bits = 30 - 24 = 6
+
+		Number of subnets = 2^6 = 64
+		```
+	- Step 3 : List subnet ranges
+		```
+		> Given that the block size is 4, increment the 4th octet into blocks of 4
+		192.168.255.0 - 192.168.255.3
+		192.168.255.4 - 192.168.255.7
+		192.168.255.8 - 192.168.255.11
+		...
+		```
+
+---
+### 4.0 Communitcating between different networks
 
 ### Default gateways & default route
 ---
@@ -353,7 +438,11 @@ _source : https://www.cloudflare.com/learning/network-layer/what-is-a-network-sw
 #### Differences of switches and Routers
 
 --- 
-### OSI layers : Open systems interconneciton 
+
+#### Summary 
+
+
+### 5.0 OSI layers : Open systems interconneciton 
 Purpose of the layers are to transmit raw bits from physical hardware to an interface over the internet.
 
 #### Layers (7) low to highest:
@@ -389,7 +478,7 @@ Acrostic to memorize : A Priest Saw Two Nuns Doing Push-ups
 	_source : https://www.geeksforgeeks.org/computer-networks/data-link-layer/_
 
 3. Network : 
-4. Transport
+4. **Transport** : TCP happens here 
 5. Session 
 6. Presentation
 7. Application
