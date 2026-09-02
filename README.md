@@ -417,13 +417,10 @@ d. 172.16.8.8
 
 ### Default gateways & default route
 ---
-- Determining the default gateway of a router 
-2 are reserved for loopback and broadcast 
-
 
 ### Routers
 ---
-- Devices that route packet to 
+- interfaces mus
 
 ### Switches
 ---
@@ -435,20 +432,33 @@ Types of switches include :
 
 _source : https://www.cloudflare.com/learning/network-layer/what-is-a-network-switch/_
 
-#### Differences of switches and Routers
+### Routing table
+
+### DNS table / DNS lookup
 
 --- 
 
 #### Summary 
 
 
-### 5.0 OSI layers : Open systems interconneciton 
-Purpose of the layers are to transmit raw bits from physical hardware to an interface over the internet.
+### 5.0 Network models 
+source : https://www.youtube.com/watch?v=CRdL1PcherM
 
-#### Layers (7) low to highest:
+Network models are a framework used to decide how data is transmitted over different devices, each layer has thier own protocols. The two main models used are tcp/ip model and OSI model. The OSI model is mode detailed on the application layer compared to the TCP/IP model (OSI > TCP/IP). The following are the breakdown of TCP/IP and OSI model.
+
+In netpractice the focus is placed on L2 (data link) & L3 (network) 
+#### Layers (7) highest to lowest : 
+
 Acrostic to memorize : A Priest Saw Two Nuns Doing Push-ups
-1. **Physical** : sends out raw bits
 
+7. Application : 
+
+	6. Presentation : 
+
+	5. Session : 
+
+4. **Transport** : TCP happens here 
+3. **Network** : 
 2. **Datalink** : takes raw bits and organizes it into **frames**. (frame : a unit of data transmission (data packet) in OSI model consisting of header, payload and trailer)
 	- Handles : 
 		- Framing (organizing raw bits into frames)
@@ -477,32 +487,13 @@ Acrostic to memorize : A Priest Saw Two Nuns Doing Push-ups
 	
 	_source : https://www.geeksforgeeks.org/computer-networks/data-link-layer/_
 
-3. Network : 
-4. **Transport** : TCP happens here 
-5. Session 
-6. Presentation
-7. Application
+1. **Physical** : sends out raw bits
+
 
 
 _source : https://www.fortinet.com/resources/cyberglossary/osi-model_
 
-### TCP/IP : Trasnmission Control Protocol/Internet Protocol 
-#### Layers (5)
-1. Application Layer
-2. Transport Layer
-3. Internet Layer
-4. Data Link Layer
-5. Physical Layer
-
-![osi-vs-tcpp-ip-models](osi-vs-tcp-ip-models.svg)
-
-_source : https://www.networkacademy.io/ccna/network-fundamentals/understanding-the-osi-model_
-
-### Comparing TCP/IP and OSI layer
-
-These two concepts are the 
---- 
+## 6.0 Rules to subnetting 
 
 
 
-$\Sigma$
