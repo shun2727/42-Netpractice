@@ -20,6 +20,7 @@ Steps to run the activity in the form of a web page :
 _The following section will addreses the concepts learnt and the sources accessed for the materials_
 
 ### 1.0 Computers identifying each other
+---
 #### IP address
 ---
 <details>
@@ -59,13 +60,85 @@ Network address are written in the form of IPV4 and IPV6
 ##### IPv6
 ---
 
+- An **IPv6 address is 128 bits** long.
+- It is written as **eight groups of 16-bit hexadecimal values**, separated by colons (`:`).
+- Example:
 
-#### MAC addrees
-----
+	`2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
+- Each group contains **4 hexadecimal digits**, ranging from `0000` to `ffff`.
+- IPv6 provides a vastly larger address space than IPv4 because it uses **128 bits** instead of 32 bits.
+- IPv6 addresses can be shortened:
+	- Leading zeros can be removed:
+		- `0db8` → `db8`
+		- `0370` → `370`
+	- One consecutive sequence of zero groups can be replaced with `::`:
+		- `2001:db8:0:0:0:0:1:1`
+		- → `2001:db8::1:1`
+	- `::` can only be used **once** in an address.
+- IPv6 also uses prefix notation, similar to IPv4:
+	- Example: `2001:db8:abcd:1234::/64`
+	- `/64` means the first **64 bits** identify the network/prefix.
+	- The remaining **64 bits** identify the interface within that network.
+
+| Prefix | Typical Use | Meaning |
+|--------|-------------|---------|
+| `/128` | Single address | Identifies one specific IPv6 address |
+| `/64` | Normal network | Common IPv6 network size |
+| `/48` | Organization/site | Common allocation for a larger network |
+| `/32` | Internet provider | Large allocation for an ISP |
+
+
+#### MAC address
+---
+
+- A **MAC (Media Access Control) address** is a link-layer address used to identify a **network interface on a local network**.
+- A typical MAC address is **48 bits (6 bytes)** long.
+- It is usually written as six hexadecimal pairs.
+- Example:
+	- `00:1A:2B:3C:4D:5E`
+- When a device sends an Ethernet frame to another device on the same network, the frame contains:
+	- **Source MAC** → the sender's network interface
+	- **Destination MAC** → the receiving network interface
+- MAC addresses belong to **network interfaces**, not necessarily the entire computer.
+	- A computer with Ethernet and Wi-Fi can have **two different MAC addresses**.
+- A MAC address is primarily used for **local network communication**.
+- A MAC address does **not normally tell the internet where a device is located**. Routers use IP addresses to communicate between networks.
+
+> **Layman analogy:**
+> - **IP address** = where the house is located
+> - **MAC address** = which specific network interface should receive the delivery locally
 
 #### Interface
 ---
+
+- A **network interface** is the point where a device **connects to a network**.
+- It can be:
+	- **Physical** → Ethernet network card, Wi-Fi adapter
+	- **Virtual** → VPN, virtual machine, container, etc.
+- A network interface can have:
+	- **MAC address** → identifies the interface on the local network
+	- **IP address** → identifies the interface at the network layer
+- A single computer can have **multiple network interfaces**.
+
+Example:
+
+	Computer
+	│
+	├── Ethernet
+	│   ├── MAC: AA:BB:CC:DD:EE:FF
+	│   └── IP: 192.168.1.25
+	│
+	└── Wi-Fi
+	    ├── MAC: 11:22:33:44:55:66
+	    └── IP: 192.168.1.26
+
+> **Layman analogy:**
+> - **Computer** = your house
+> - **Network interface** = the door connecting your house to the road
+> - **MAC address** = identifier for that door
+> - **IP address** = network address assigned to that connection
+
 
 
 ### Subnet masks
@@ -154,13 +227,9 @@ source for underatnding how devices communicate with each other: https://www.you
 		- `255.255.255.0`
 		- in CIDR notation : `\24`
 
-#### Summary (within the same subnet)
----
-> [!NOTE]
-> IP address 
 
 ### 2.0 Types of IP addresses
-
+---
 #### Public IP ranges :
 | Class   | Range                                                       | CIDR (Equivalent)                      | Common Use Example                            |
 | ------- | ----------------------------------------------------------- | -------------------------------------- | --------------------------------------------- |
@@ -413,65 +482,51 @@ d. 172.16.8.8
 		```
 
 ---
-### 4.0 Communitcating between different networks
 
-### Default gateways & default route
----
-
-### Routers
----
-- interfaces mus
-
-### Switches
----
-What is a network switch ?
-
-Types of switches include :
-1. L2 (layer 2 switch)
-2. L3 (Layer 3 switch)
-
-_source : https://www.cloudflare.com/learning/network-layer/what-is-a-network-switch/_
-
-### Routing table
-
-### DNS table / DNS lookup
-
---- 
-
-#### Summary 
-
-
-### 5.0 Network models 
-source : https://www.youtube.com/watch?v=CRdL1PcherM
+### 4.0 Network models 
+- source 1 : https://www.youtube.com/watch?v=CRdL1PcherM (Basic difference in TCP/IP and OSI)
+- source 2 : https://www.youtube.com/watch?v=3b_TAYtzuho (More detailed differnce between TCP/IP and OSI model, includes explanation on PDUs involved in each layer)
+- source 3 : https://www.youtube.com/watch?v=0Rb8AkTEASw (Protocols and futher details on each layer)
+- source 4 : https://www.fortinet.com/resources/cyberglossary/osi-model
 
 Network models are a framework used to decide how data is transmitted over different devices, each layer has thier own protocols. The two main models used are tcp/ip model and OSI model. The OSI model is mode detailed on the application layer compared to the TCP/IP model (OSI > TCP/IP). The following are the breakdown of TCP/IP and OSI model.
 
-In netpractice the focus is placed on L2 (data link) & L3 (network) 
+In netpractice the focus is placed on L2 (data link) & L3 (network), the following will focus on L4(transport) to L1(Data Link)
 #### Layers (7) highest to lowest : 
+---
 
 Acrostic to memorize : A Priest Saw Two Nuns Doing Push-ups
 
-7. Application : 
+- Application 
+	- Presentation 
+	- Session 
 
-	6. Presentation : 
+- **Transport** (L4) : 
+	- **PDU name** : Segment
+	- **Encapsulation Headers**: Source Port Address and Destination Port Address
+	- **Operational purpose** :Identifies which port does the service belong to 
+	- **Core standards used** :
+		- TCP (Transmission Control Protocol)
+		- UDP (User Datagram Protocol)
 
-	5. Session : 
+- **Network** (L3): 
+	- **PDU name** : Packet 
+	- **Encapsulation Headers**: Source IP Address and Destination IP Address
+	- **Operational purpose** : dentifies where the data needs to go across networks.
+	- **Core standards used** :
+		- IPv4 / IPv6 (Internet Protocol): The standard open routing protocol suite used to define logical address spaces 
+		- ICMP (Internet Control Message Protocol): Reference Protocol. Handles diagnostic, error, and signaling messages (e.g., ping and traceroute).
+		- Routing Maps (OSPF, BGP, RIP): Reference Protocols. Router-to-router mapping systems that help devices calculate the fastest physical hops across the internet.
 
-4. **Transport** : TCP happens here 
-3. **Network** : 
-2. **Datalink** : takes raw bits and organizes it into **frames**. (frame : a unit of data transmission (data packet) in OSI model consisting of header, payload and trailer)
-	- Handles : 
-		- Framing (organizing raw bits into frames)
-		- MAC addressing (source/destination) (in header)
-		- Error detection/correction (in trailer)
-		- Encoding/decoding
-	- Contents of a frame :
+- **Datalink** (L2): 
+	- **PDU name** : Frame
+	- **Encapsulation Headers**: 
 		- header : usually just MAC address (src and dest)
 		- payload : actual data, can be anything
 		- trailer : extra infromation added at the end of the frame 
 	
 		![frame simplified](frames_simplified.png)
-	- Examples of frame : 
+		- Examples of frame : 
 		```
 		ethernet frame
 		[Dest MAC | Source MAC] | Payload | trailer
@@ -481,19 +536,60 @@ Acrostic to memorize : A Priest Saw Two Nuns Doing Push-ups
 		[Dest MAC | Source MAC | BSSID | Seq No.] | Payload | trailer
 		```
 
-	> all frames have the same format (3 items), there are different types of frames (ethernet , wifi). All frames will get sent out eventualy, subsequently one by one. 
+		> all frames have the same format (3 items), there are different types of frames (ethernet , wifi). All frames will get sent out eventualy, subsequently one by one. 
 
-	_source for frame content : https://www.slideshare.net/slideshow/framing-in-data-link-layer-136604265/136604265#2_
-	
-	_source : https://www.geeksforgeeks.org/computer-networks/data-link-layer/_
+		_source for frame content : https://www.slideshare.net/slideshow/framing-in-data-link-layer-136604265/136604265#2_
+		
+		_source : https://www.geeksforgeeks.org/computer-networks/data-link-layer/_
+	- **Operational purpose** : Delivers data between devices on the same local network.
+	- **Core standards used** :
+		- Core Layer Protocols:ARP (Address Resolution Protocol): The translation engine. It translates the IP address to the MAC address so a device can construct a valid frame.
+		- Ethernet: The primary data link protocol used for wired transport.
 
-1. **Physical** : sends out raw bits
+- **Physical** (L1) : 
+	- **PDU name** : Bits
+	- **Operational purpose** : takes raw binary from L2 and converts them into physical signals (electrical voltages for copper wires, light pulses for fiber optic cables, or radio wave frequencies for wireless transmissions)
+	- **Core standards used** : IEEE 802.11 (Wi-Fi standards like 802.11ac / 802.11ax): Standardizes how bits are modulated into high-frequency wireless radio bands
+
+### 5.0 Communitcating between different networks
+
+### Switches 
+---
+- Devices that work on L2 of the network, its purpose is to act as a bridge between devices on the same local network 
+
+### Routers
+---
+- Devices that work on L3 of the network, its purpose is to route data between different networks
+
+#### Devices on the same network not allowed to be router in netpractice
+--- 
+- In netpractice the routers provided are "dummy routers"
+	- Switches in real world allow assigning different ranges of interfaces to a specific network 
+	- Additionally, local network ports are conneted internally by a built-in Layer2 switch chip which floods ARP broadcasts to all ports. 
+	- In Netpractice, the router lacks a L2 switch chip
+	- Routers are designed to not foward broadcast traffic between different interfaces to prevent a boratcast storm 
+	- A router is designed to take a packet from a network and foward it to an another network, if it sees that its within the same network it will not route it back to its network because it assumes that it will have already transmitted it to that device within the same network
 
 
+### Step by step flow of acknowldging between devices
+---
+Note : the scenario provided is confined to the practices given in netpractice 
 
-_source : https://www.fortinet.com/resources/cyberglossary/osi-model_
+#### On the same network (switch)
+1. PC1 checks the destination IP of PC2 and uses its subnet mask to determine that PC2 is inside the exact same local network block.
+2. PC1 checks its local ARP cache for PC2's MAC address. If it is missing, PC1 generates an ARP request broadcast (FF:FF:FF:FF:FF:FF) asking, "Who has PC2's IP? Send me your MAC."
+3. The Layer 2 Switch receives the broadcast on its incoming port. Because it is a switch, it replicates and floods that broadcast out of every single active port on the network.
+4. PC2 receives the broadcast frame, recognizes its own IP, and replies with a direct Unicast frame containing its hardware MAC address straight back to PC1.
+5. PC1 updates its ARP table, encapsulates its data into a standard Ethernet frame stamped with PC2's Destination MAC, and the switch instantly delivers it directly across the local hardware wire.
 
-## 6.0 Rules to subnetting 
+#### On the same network (router)
+1. PC1 checks the ip of PC2 and sees that its in the same network. It will not send the packet to the router's gateway and instead sends an ARP request(a request to check which MAC addresss owns the IP in question)
+2. In Netpractice : interface ports are typically connected internally as they have a built-in L2 switch which floods the ARP request to all the ports, but the router in netpratice lacks it. Therefore ARP request boroadcast from PC1 hits th router port and drops.
+3. PC1 never receives the ARP response from PC2, is unable to map the destination ip to the address.
 
-
-
+#### On the different network (router)
+1. PC1 checks the destination IP of PC2, applies its subnet mask, and realizes that PC2 lives on a completely different network block.
+2. PC1 prepares the packet to go to its configured Default Gateway (the Layer 3 router's local interface IP).
+3. PC1 looks up the router's MAC address via ARP table (or pulls it from its cache) and encapsulates the packet into an Ethernet frame where the Destination IP is PC2, but the Destination MAC is the Router's interface port.
+4. The Router receives the frame, strips away the Layer 2 Ethernet header, and passes the raw packet up to its Layer 3 routing table to look for a matching network range.
+5. The Router finds the destination subnet map, modifies the Layer 2 headers (switching the source MAC to its own outbound port and the destination MAC to PC2's interface), and forwards the packet out of the secondary interface into the correct network segment.
