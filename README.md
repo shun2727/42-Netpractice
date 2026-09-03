@@ -1,4 +1,4 @@
-_This project has been created as partof the 42 curriculum by syee_
+_This project has been created as part of the 42 curriculum by syee._
 # NetPractice
 
 ## Description 
@@ -586,6 +586,10 @@ Note : the scenario provided is confined to the practices given in netpractice
 1. PC1 checks the ip of PC2 and sees that its in the same network. It will not send the packet to the router's gateway and instead sends an ARP request(a request to check which MAC addresss owns the IP in question)
 2. In Netpractice : interface ports are typically connected internally as they have a built-in L2 switch which floods the ARP request to all the ports, but the router in netpratice lacks it. Therefore ARP request boroadcast from PC1 hits th router port and drops.
 3. PC1 never receives the ARP response from PC2, is unable to map the destination ip to the address.
+Note : 
+- while routing, if the interfaces have overlapping networks, the router will choose the route eith the longest matching prefix (LMP)
+- e.g. x.x.x.1/24 if there is an itnerface with /25 vs /24, it will choose /24 over /25
+
 
 #### On the different network (router)
 1. PC1 checks the destination IP of PC2, applies its subnet mask, and realizes that PC2 lives on a completely different network block.
@@ -593,3 +597,7 @@ Note : the scenario provided is confined to the practices given in netpractice
 3. PC1 looks up the router's MAC address via ARP table (or pulls it from its cache) and encapsulates the packet into an Ethernet frame where the Destination IP is PC2, but the Destination MAC is the Router's interface port.
 4. The Router receives the frame, strips away the Layer 2 Ethernet header, and passes the raw packet up to its Layer 3 routing table to look for a matching network range.
 5. The Router finds the destination subnet map, modifies the Layer 2 headers (switching the source MAC to its own outbound port and the destination MAC to PC2's interface), and forwards the packet out of the secondary interface into the correct network segment.
+
+### AI declaration
+---
+AI was used in this project to clean up tables for the read me, and create analogies for concepts. Aside from that, no AI was used during the attempts in completing the project.
